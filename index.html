@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>AhmiSVG — Dive to the Thesis</title>
-<meta name="description" content="Portfolio immersif AhmiSVG — EPITECH MSc IA, mobilités, data, infra homelab. Thesis-driven, shadow-built."/>
+<meta property="og:title" content="AhmiSVG — Dive to the Thesis"/><meta property="og:type" content="website"/><meta name="description" content="Portfolio immersif AhmiSVG — EPITECH MSc IA, mobilités, data, infra homelab. Thesis-driven, shadow-built."/>
 <style>
 :root{--bg:#070b16;--ink:#eaf0ff;--gold:#ffd98a;--violet:#8b6cff;--teal:#5eead4}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
@@ -85,7 +85,7 @@ const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);cam.position.z=8;
-const isMobile=matchMedia('(max-width:640px)').matches;
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;const isMobile=matchMedia('(max-width:640px)').matches;
 const N=isMobile?900:3200;
 const geo=new THREE.BufferGeometry();
 const pos=new Float32Array(N*3);
@@ -113,7 +113,8 @@ let seq=[];addEventListener('keydown',e=>{seq.push(e.key.toLowerCase());seq=seq.
 function size(){renderer.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
 addEventListener('resize',size);size();
 let last=performance.now(),frames=0;
-(function loop(t){requestAnimationFrame(loop);const dt=(t-last)/1000;last=t;frames++;pts.rotation.y+=dt*.05+mx*.002;pts.rotation.x+=my*.001;key.rotation.y+=dt*.8;door.rotation.y=Math.sin(t*.0004)*.18+mx*.25;renderer.render(scene,cam);if(frames%30===0)document.getElementById('fps').textContent=Math.round(1/Math.max(dt,.001))+' fps';})(performance.now());
+(function loop(t){requestAnimationFrame(loop);const dt=(t-last)/1000;last=t;frames++;if(!reduced){pts.rotation.y+=dt*.05+mx*.002;pts.rotation.x+=my*.001;;key.rotation.y+=dt}*.8;door.rotation.y=Math.sin(t*.0004)*.18+mx*.25;renderer.render(scene,cam);if(frames%30===0)document.getElementById('fps').textContent=Math.round(1/Math.max(dt,.001))+' fps';})(performance.now());
 </script>
 </body>
 </html>
+
