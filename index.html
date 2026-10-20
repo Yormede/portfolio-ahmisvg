@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AhmiSVG — Dive to the Thesis</title>
+<meta name="description" content="Portfolio immersif AhmiSVG — EPITECH MSc IA, mobilités, data, infra homelab. Thesis-driven, shadow-built."/>
+<style>
+:root{--bg:#070b16;--ink:#eaf0ff;--gold:#ffd98a;--violet:#8b6cff;--teal:#5eead4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
+#sea{position:fixed;inset:0;z-index:0}
+.station{position:relative;z-index:1;min-height:100svh;display:grid;place-items:center;text-align:center;padding:6rem 1.2rem 3rem}
+.glass{width:min(760px,92vw);aspect-ratio:1/1;border-radius:50%;padding:2rem;display:grid;place-items:center;
+background:radial-gradient(circle at 50% 35%,#1b2650 0%,#0c1330 45%,#070b16 72%);
+border:1px solid #26315e;box-shadow:0 0 120px #2b3a8f66,inset 0 0 80px #000}
+.glass h1{font-size:clamp(2rem,6vw,4.2rem);letter-spacing:.04em;margin:.2em 0}
+.glass p{opacity:.85;max-width:34em;margin:.4em auto}
+.btn{display:inline-block;margin:.6em .3em;padding:.8em 1.3em;border-radius:999px;border:1px solid var(--gold);color:var(--bg);background:var(--gold);font-weight:700;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:#4a568f}
+section{position:relative;z-index:1;padding:4rem 1.2rem;max-width:1080px;margin:0 auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.card{background:#0d1430cc;border:1px solid #2a3568;border-radius:14px;padding:1.1rem;backdrop-filter:blur(6px)}
+.card h3{margin:.2em 0}.tag{font-size:.75rem;opacity:.7;border:1px solid #334;padding:.15em .6em;border-radius:999px;margin-right:.3em}
+#shadowLayer{display:none;border-top:1px dashed var(--violet);margin-top:2rem;padding-top:2rem}
+body.shadow #shadowLayer{display:block}
+body.shadow{--bg:#050208;--ink:#f3e8ff}
+.hud{position:fixed;z-index:2;bottom:12px;left:12px;right:12px;display:flex;gap:.6em;justify-content:space-between;align-items:center;font-size:.85rem;opacity:.9}
+.kbd{border:1px solid #444;border-radius:6px;padding:.1em .5em}
+canvas.fallback{opacity:.2}
+@media (max-width:640px){.glass{aspect-ratio:auto;border-radius:24px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<canvas id="sea"></canvas>
+<header class="station">
+<div class="glass" id="glass">
+<div>
+<div style="letter-spacing:.35em;font-size:.75rem;opacity:.7">EPITECH LYON MSc IA • DOCTORAT TRACK</div>
+<h1>Dive to the Thesis</h1>
+<p>Je m'appelle <b>AhmiSVG</b>. En surface : étudiant discret.<br/>En ombre : je construis data, modèles et infra qui tiennent la route.<br/>Inspiré Kingdom Hearts II et l'éthique Shadow — sans musique, juste des sons.</p>
+<p>
+<a class="btn" href="#projets">Explorer les mondes</a>
+<button class="btn ghost" id="shadowBtn" aria-pressed="false">Révéler l'ombre</button>
+</p>
+<p style="font-size:.8rem;opacity:.6">Astuce : tape <span class="kbd">S</span> <span class="kbd">H</span> <span class="kbd">A</span> <span class="kbd">D</span> <span class="kbd">O</span> <span class="kbd">W</span> — clin d'œil à Cid Kageno : la progression se voit aux signes subtils.</p>
+</div>
+</div>
+</header>
+<section id="projets">
+<h2>Mondes — projets doctorat-ready</h2>
+<div class="cards">
+<div class="card"><h3>Hackathon Mobilité — graphe piéton</h3><p>OSM Lyon/Grenoble, isochrones 5 min, Filosofi, ML AUC 0.955, 375m euclidien. Preuves, pas promesses.</p><p><span class="tag">GeoData</span><span class="tag">ML</span><span class="tag">QGIS</span></p></div>
+<div class="card"><h3>Time Manager T-DEV-700</h3><p>Next 16 / Nest 12 / Docker / CI. Fonctionnel dense, persistance JSONB, vérifié local + CI.</p><p><span class="tag">Fullstack</span><span class="tag">Docker</span></p></div>
+<div class="card"><h3>france-student-bridge</h3><p>Pont étudiants France : parcours, CVEC, logement, démarches. Pédagogie claire, FR/EN.</p><p><span class="tag">Impact</span></p></div>
+<div class="card"><h3>ai-service-gateway</h3><p>Gateway MCP multi-LLM, routage, quotas, traçabilité. Base pour recherche agents.</p><p><span class="tag">Agents</span><span class="tag">MCP</span></p></div>
+<div class="card"><h3>deep-researcher</h3><p>Recherche profonde sourcée, 43 refs / 157 observations : distinguer couverture et exhaustivité.</p><p><span class="tag">Research</span></p></div>
+<div class="card"><h3>Homelab yormede</h3><p>i3-12100F / RX580 / Docker perso + NPM + Tailscale. Preuves locales ≠ prod, monitoring, backups.</p><p><span class="tag">Infra</span><span class="tag">Self-host</span></p></div>
+</div>
+<div id="shadowLayer">
+<h2>Shadow Garden — ce que les signes subtils racontent</h2>
+<p>Comme Cid : pas de bruit, juste la constance. Chaque projet ci-dessus a un journal, des hash vérifiés, des limites écrites. C'est ça, ma version de « I am atomic » — une soutenance qui explose proprement parce que tout est prouvé en amont.</p>
+<ul>
+<li>Mob en public, rigoureux en coulisses : registre partiel 98/118 hashés, copié ≠ exhaustif.</li>
+<li>Population 375m = proximité, pas gain net. Score /100 = opportunité relative.</li>
+<li>Local vert ≠ prod : test navigateur réel exigé.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Quête — mini-jeu porte & clé</h2>
+<p>Bouge ta souris : la mer de particules réagit. Clique pour émettre un « keyblade pulse » (son synthétisé, pas de musique). Objectif : allumer les 3 serrures pour débloquer le contact.</p>
+<p id="locks">Serrures : ○ ○ ○</p>
+</section>
+<section id="contact">
+<h2>Contact</h2>
+<p>Doctorat financé IA / Data / Mobilités — Lyon, remote possible.</p>
+<p><a class="btn" href="https://github.com/AhmiSVG" target="_blank" rel="noopener">GitHub AhmiSVG</a></p>
+</section>
+<div class="hud"><span>Dive to the Thesis • SFX only • mobile allégé</span><span id="fps">— fps</span></div>
+<script type="module">
+import * as THREE from 'three';
+const canvas=document.getElementById('sea');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);cam.position.z=8;
+const isMobile=matchMedia('(max-width:640px)').matches;
+const N=isMobile?900:3200;
+const geo=new THREE.BufferGeometry();
+const pos=new Float32Array(N*3);
+for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*22;pos[i*3+1]=(Math.random()-.5)*14;pos[i*3+2]=(Math.random()-.5)*10;}
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const mat=new THREE.PointsMaterial({color:0x8b9bff,size:.035,transparent:true,opacity:.85});
+const pts=new THREE.Points(geo,mat);scene.add(pts);
+// porte + clé stylisées, pas de perso lisse
+const door=new THREE.Mesh(new THREE.BoxGeometry(1.4,2.4,.12),new THREE.MeshStandardMaterial({color:0x1a2450,roughness:.6,metalness:.3}));
+door.position.set(0,-.4,-1);scene.add(door);
+const key=new THREE.Mesh(new THREE.TorusGeometry(.45,0.07,10,40),new THREE.MeshStandardMaterial({color:0xffd98a,emissive:0x664400,roughness:.35}));
+key.position.set(0,.6,-.5);scene.add(key);
+scene.add(new THREE.AmbientLight(0x8899ff,.9));
+const dl=new THREE.DirectionalLight(0xffffff,1.2);dl.position.set(3,4,5);scene.add(dl);
+let mx=0,my=0,pulses=0;
+addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});
+const actx=new (window.AudioContext||window.webkitAudioContext)();
+function blip(f=660){if(actx.state==='suspended')actx.resume();const o=actx.createOscillator(),g=actx.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.12,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.35);o.connect(g).connect(actx.destination);o.start();o.stop(actx.currentTime+.36);}
+addEventListener('click',()=>{pulses=Math.min(3,pulses+1);blip(500+pulses*180);document.getElementById('locks').textContent='Serrures : '+'●'.repeat(pulses)+'○'.repeat(3-pulses);key.rotation.z+=1.2;});
+function sfxShadow(){blip(220);setTimeout(()=>blip(330),120);}
+const btn=document.getElementById('shadowBtn');
+function toggleShadow(){document.body.classList.toggle('shadow');const on=document.body.classList.contains('shadow');btn.setAttribute('aria-pressed',on);btn.textContent=on?'Masquer l’ombre':'Révéler l’ombre';if(on)sfxShadow();}
+btn.onclick=toggleShadow;
+let seq=[];addEventListener('keydown',e=>{seq.push(e.key.toLowerCase());seq=seq.slice(-6);if(seq.join('')==='shadow')toggleShadow();});
+function size(){renderer.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
+addEventListener('resize',size);size();
+let last=performance.now(),frames=0;
+(function loop(t){requestAnimationFrame(loop);const dt=(t-last)/1000;last=t;frames++;pts.rotation.y+=dt*.05+mx*.002;pts.rotation.x+=my*.001;key.rotation.y+=dt*.8;door.rotation.y=Math.sin(t*.0004)*.18+mx*.25;renderer.render(scene,cam);if(frames%30===0)document.getElementById('fps').textContent=Math.round(1/Math.max(dt,.001))+' fps';})(performance.now());
+</script>
+</body>
+</html>

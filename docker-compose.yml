@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    build: .
+    container_name: portfolio-ahmisvg
+    restart: unless-stopped
+    ports:
+      - "8091:80"
