@@ -104,7 +104,8 @@ let mx=0,my=0,pulses=Number(localStorage.getItem("locks")||0);const locksEl=docu
 addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});
 const actx=new (window.AudioContext||window.webkitAudioContext)();
 let sfxOn=true;const sfxBtn=document.getElementById("sfxBtn");if(sfxBtn){sfxBtn.onclick=()=>{sfxOn=!sfxOn;sfxBtn.textContent=sfxOn?"SFX : ON":"SFX : OFF";sfxBtn.setAttribute("aria-pressed",sfxOn);};}function blip(f=660){if(!sfxOn)return;if(actx.state==='suspended')actx.resume();const o=actx.createOscillator(),g=actx.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.12,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.35);o.connect(g).connect(actx.destination);o.start();o.stop(actx.currentTime+.36);}
-addEventListener('click',()=>{pulses=Math.min(3,pulses+1);blip(500+pulses*180);document.getElementById('locks').textContent='Serrures : '+'●'.repeat(pulses)+'○'.repeat(3-pulses);key.rotation.z+=1.2;try{localStorage.setItem("locks",pulses);}catch(e){}const ring=new THREE.Mesh(new THREE.RingGeometry(.5,.56,48),new THREE.MeshBasicMaterial({color:0xffd98a,transparent:true,opacity:.9,side:THREE.DoubleSide}));ring.position.copy(key.position);ring.userData.t=0;scene.add(ring);rings.push(ring);});
+function pulse(){if(pulses>=3)return;pulses=Math.min(3,pulses+1);blip(500+pulses*180);document.getElementById('locks').textContent='Serrures : '+'●'.repeat(pulses)+'○'.repeat(3-pulses);key.rotation.z+=1.2;try{localStorage.setItem("locks",pulses);}catch(e){}const ring=new THREE.Mesh(new THREE.RingGeometry(.5,.56,48),new THREE.MeshBasicMaterial({color:0xffd98a,transparent:true,opacity:.9,side:THREE.DoubleSide}));ring.position.copy(key.position);ring.userData.t=0;scene.add(ring);rings.push(ring);if(pulses>=3){const l=document.getElementById('locks');if(l)l.textContent='Les serrures cèdent — le contact s\u2019ouvre à toi.';blip(880);setTimeout(()=>blip(1174),180);}blip(500+pulses*180);}
+addEventListener('click',pulse);addEventListener('keydown',e=>{if(e.key==='k'||e.key==='K'||e.key==='Enter'&&e.target===document.body)pulse();});
 function sfxShadow(){blip(220);setTimeout(()=>blip(330),120);}
 const btn=document.getElementById('shadowBtn');
 function toggleShadow(){document.body.classList.toggle('shadow');const on=document.body.classList.contains('shadow');btn.setAttribute('aria-pressed',on);btn.textContent=on?'Masquer l’ombre':'Révéler l’ombre';if(on)sfxShadow();}
@@ -117,6 +118,7 @@ let last=performance.now(),frames=0;
 </script>
 <script>const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("v");io.unobserve(e.target)}}),{threshold:.15});document.querySelectorAll("section,.card").forEach(el=>{el.classList.add("reveal");io.observe(el)});</script></body>
 </html>
+
 
 
 
