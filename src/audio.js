@@ -1,0 +1,6 @@
+// SFX only, aucune musique.
+let ctx = null;
+let enabled = true;
+function ac() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+function tone(f, d, t, v, w) { if (!enabled) return; try { const a = ac(); const s = a.currentTime + (w || 0); const o = a.createOscillator(); const g = a.createGain(); o.type = t || 'triangle'; o.frequency.value = f; g.gain.setValueAtTime(v || 0.12, s); g.gain.exponentialRampToValueAtTime(0.0001, s + d); o.connect(g); g.connect(a.destination); o.start(s); o.stop(s + d + 0.02); } catch (e) {} }
+export const sfx = { get enabled() { return enabled; }, toggle() { enabled = !enabled; return enabled; }, click() { tone(660, 0.12, 'triangle', 0.1); }, step() { tone(180 + Math.random() * 60, 0.07, 'sine', 0.05); }, pulse() { tone(520, 0.25, 'sawtooth', 0.06); tone(1040, 0.3, 'triangle', 0.08, 0.02); }, lock(i) { tone(440 + i * 160, 0.3, 'triangle', 0.12); setTimeout(() => tone(660 + i * 160, 0.35, 'triangle', 0.1), 140); }, shadow() { tone(220, 0.4, 'sine', 0.1); setTimeout(() => tone(330, 0.5, 'sine', 0.09), 120); }, win() { tone(880, 0.3, 'triangle', 0.12); setTimeout(() => tone(1174, 0.5, 'triangle', 0.12), 170); }, deny() { tone(140, 0.2, 'square', 0.05); } };
