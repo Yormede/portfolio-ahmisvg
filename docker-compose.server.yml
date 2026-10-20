@@ -1,0 +1,9 @@
+services:
+  portfolio:
+    image: nginx:alpine
+    container_name: portfolio-ahmisvg
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    volumes:
+      - /opt/portfolio/index.html:/usr/share/nginx/html/index.html:ro
